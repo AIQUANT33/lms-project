@@ -1,0 +1,51 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+
+  <h1> Completion Approvals</h1>
+
+  <!-- EMPTY -->
+  <div *ngIf="enrollments.length === 0" class="empty">
+    No requests
+  </div>
+
+  <!-- GRID -->
+  <div class="card-grid" *ngIf="enrollments.length > 0">
+
+    <div class="card" *ngFor="let e of enrollments">
+
+      <h3>{{ e.student?.name }}</h3>
+      <p class="email">{{ e.student?.email }}</p>
+
+      <!-- STATUS -->
+      <span 
+        [ngClass]="{
+          'status pending': e.completionStatus === 'PENDING_APPROVAL',
+          'status approved': e.completionStatus === 'APPROVED'
+        }"
+      >
+        ● {{ e.completionStatus }}
+      </span>
+
+      <p class="course">
+        {{ e.course?.title }}
+      </p>
+
+      <!-- APPROVE BUTTON -->
+      <button 
+        *ngIf="e.completionStatus === 'PENDING_APPROVAL'"
+        class="approve-btn"
+        (click)="approve(e)">
+        Approve Certificate
+      </button>
+
+      <!-- APPROVED LABEL -->
+      <p *ngIf="e.completionStatus === 'APPROVED'" class="approved-text">
+        Approved
+      </p>
+
+    </div>
+
+  </div>
+
+</div>

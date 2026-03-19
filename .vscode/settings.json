@@ -1,0 +1,12 @@
+{
+  "files.autoSave": "off",
+  "editor.formatOnSave": false,
+  "editor.formatOnType": false,
+  "files.autoUpdate": false,
+  "editor.formatOnPaste": false,
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": false
+  }
+}

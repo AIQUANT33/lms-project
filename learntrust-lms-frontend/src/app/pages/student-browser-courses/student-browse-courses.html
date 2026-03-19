@@ -1,0 +1,45 @@
+<app-navbar></app-navbar>
+
+<div class="browse-container">
+
+  <h1>Explore Courses </h1>
+
+  <!-- Loading -->
+  <p *ngIf="loading">
+    Loading courses...
+  </p>
+
+  <!-- Empty -->
+  <p *ngIf="!loading && courses.length === 0">
+    No published courses available.
+  </p>
+
+  <!-- Grid -->
+  <div class="course-grid" *ngIf="!loading && courses.length > 0">
+
+    <div class="course-card" *ngFor="let course of courses">
+
+      <h3>{{ course.title }}</h3>
+      <p>{{ course.description }}</p>
+
+      <button
+        class="btn-primary"
+        *ngIf="!isEnrolled(course.courseId)"
+        (click)="enroll(course.courseId)"
+        [disabled]="enrollingCourseId === course.courseId">
+        {{ enrollingCourseId === course.courseId ? 'Enrolling...' : 'Enroll' }}
+      </button>
+
+      <button
+        class="btn-success"
+        *ngIf="isEnrolled(course.courseId)"
+        disabled>
+        Enrolled ✓
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+

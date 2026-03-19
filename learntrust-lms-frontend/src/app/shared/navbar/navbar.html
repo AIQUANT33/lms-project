@@ -1,0 +1,109 @@
+<nav class="navbar">
+
+  <div class="left">
+
+    <div
+      class="logo"
+      [routerLink]="['/']"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }">
+      LearnTrust
+    </div>
+
+    <a
+      class="teach-link"
+      [routerLink]="['/become-trainer']"
+      routerLinkActive="active">
+      Teach on LearnTrust
+    </a>
+
+  </div>
+
+
+  <div class="menu">
+
+    <!-- STUDENT -->
+    <ng-container *ngIf="role === 'STUDENT'">
+
+      <a
+        [routerLink]="['/student']"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="forceNavigate('/student')">
+        Dashboard
+      </a>
+
+      <a
+        [routerLink]="['/my-learning']"
+        routerLinkActive="active"
+        (click)="forceNavigate('/my-learning')">
+        My Learning
+      </a>
+
+      <a
+        [routerLink]="['/courses']"
+        routerLinkActive="active"
+        (click)="forceNavigate('/courses')">
+        Browse Courses
+      </a>
+
+    </ng-container>
+
+
+    <!-- TRAINER -->
+    <ng-container *ngIf="role === 'TRAINER'">
+
+      <a
+        [routerLink]="['/trainer']"
+        routerLinkActive="active">
+        Dashboard
+      </a>
+
+      <a
+        [routerLink]="['/trainer/create-course']"
+        routerLinkActive="active">
+        Create Course
+      </a>
+
+    </ng-container>
+
+
+    <!-- ADMIN -->
+    <ng-container *ngIf="role === 'ADMIN'">
+
+      <a
+        [routerLink]="['/admin']"
+        routerLinkActive="active">
+        Dashboard
+      </a>
+
+      <a
+        [routerLink]="['/admin/course-approvals']"
+        routerLinkActive="active">
+        Admin Control Panel
+      </a>
+
+    </ng-container>
+
+  </div>
+
+
+  <div class="right">
+
+    <button class="theme-toggle" (click)="toggleTheme()">
+      {{ darkMode ? '☀️' : '🌙' }}
+    </button>
+
+    <ng-container *ngIf="!isLoggedIn">
+      <button [routerLink]="['/login']" class="btn-outline">Log in</button>
+      <button [routerLink]="['/register']" class="btn-primary">Sign up</button>
+    </ng-container>
+
+    <ng-container *ngIf="isLoggedIn">
+      <span class="user">{{ userName }}</span>
+      <button (click)="logout()" class="btn-primary small">Logout</button>
+    </ng-container>
+
+  </div>
+
+</nav>

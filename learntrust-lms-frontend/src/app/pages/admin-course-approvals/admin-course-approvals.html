@@ -1,0 +1,60 @@
+<app-navbar></app-navbar>
+
+<div class="admin-container">
+
+  <h1>Admin Control Panel </h1>
+
+  <!-- trainer requests-->
+  <h2>Pending Trainer Requests</h2>
+
+  <p *ngIf="!loadingTrainers && pendingTrainerRequests.length === 0">
+    No pending trainer requests
+  </p>
+
+  <div class="card-grid">
+    <div class="card" *ngFor="let req of pendingTrainerRequests || []">
+      <h3>{{ req.fullName }}</h3>
+      <p><b>Email:</b> {{ req.email }}</p>
+      <p><b>Expertise:</b> {{ req.expertise }}</p>
+
+      <div class="actions">
+        <button class="approve"
+                (click)="approveTrainer(req.id)">
+          Approve
+        </button>
+
+        <button class="reject"
+                (click)="rejectTrainer(req.id)">
+          Reject
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!--courses-->
+  <h2>Courses Pending Approval</h2>
+
+  <p *ngIf="!loadingCourses && pendingCourses.length === 0">
+    No courses pending approval
+  </p>
+
+  <div class="card-grid">
+    <div class="card" *ngFor="let course of pendingCourses || []">
+      <h3>{{ course.title }}</h3>
+      <p>{{ course.description }}</p>
+
+      <div class="actions">
+        <button class="approve"
+                (click)="approveCourse(course.courseId)">
+          Approve
+        </button>
+
+        <button class="reject"
+                (click)="rejectCourse(course.courseId)">
+          Reject
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>

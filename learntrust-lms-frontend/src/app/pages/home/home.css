@@ -1,0 +1,81 @@
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 80px 60px;
+  min-height: calc(100vh - 70px);
+  background: linear-gradient(135deg, var(--primary, #1e3a8a), var(--secondary, #0ea5e9)); 
+  color: white;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.hero-left { max-width: 520px; }
+
+.hero-left h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 16px;
+  letter-spacing: -0.03em;
+}
+
+.hero-left p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+.cta-group {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.btn-primary {
+  padding: 14px 28px;
+  background: white;
+  color: var(--primary, #1e3a8a);
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.btn-outline {
+  padding: 14px 28px;
+  background: transparent;
+  color: white;
+  border: 2px solid rgba(255,255,255,0.7);
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-outline:hover {
+  background: rgba(255,255,255,0.15);
+  border-color: white;
+}
+
+.trust {
+  display: flex;
+  gap: 18px;
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+.hero-right img {
+  width: 420px;
+  max-width: 100%;
+  border-radius: 16px;
+}

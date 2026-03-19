@@ -1,0 +1,181 @@
+<app-navbar></app-navbar>
+
+<div class="admin-container">
+
+  <!-- HERO -->
+  <div class="admin-hero">
+    <div class="hero-bg-art">
+      <div class="art-circle c1"></div>
+      <div class="art-circle c2"></div>
+    </div>
+    <div class="hero-left">
+      <div class="hero-tag">🛡️ Admin Panel</div>
+      <h1 class="hero-title">Platform<span class="hero-name"> Analytics</span></h1>
+      <p class="hero-desc">Monitor platform health, manage users and oversee all courses from one central dashboard.</p>
+      <div class="hero-actions">
+        <button routerLink="/admin/users" class="btn-hero-primary">Manage Users</button>
+        <button routerLink="/admin/course-approvals" class="btn-hero-ghost">Course Approvals</button>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat" *ngIf="stats">
+        <span class="hstat-num">{{ stats.totalStudents }}</span>
+        <span class="hstat-label">Students</span>
+      </div>
+      <div class="hstat" *ngIf="stats">
+        <span class="hstat-num">{{ stats.totalTrainers }}</span>
+        <span class="hstat-label">Trainers</span>
+      </div>
+      <div class="hstat" *ngIf="stats">
+        <span class="hstat-num">{{ stats.totalCourses }}</span>
+        <span class="hstat-label">Courses</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOADING -->
+  <div class="loading-state" *ngIf="loading">
+    <div class="spinner"></div>
+    <p>Loading analytics...</p>
+  </div>
+
+  <!-- STATS GRID -->
+  <div class="stats-section" *ngIf="!loading && stats">
+
+    <div class="section-header">
+      <h2 class="section-title">Platform Overview</h2>
+    </div>
+
+    <div class="stats-grid">
+
+      <div class="stat-card">
+        <div class="stat-icon-wrap blue">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <div class="stat-info">
+          <span class="stat-label">Total Students</span>
+          <span class="stat-num">{{ stats.totalStudents }}</span>
+        </div>
+        <div class="stat-trend up">Active learners</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon-wrap green">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="8" r="6"/>
+            <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>
+          </svg>
+        </div>
+        <div class="stat-info">
+          <span class="stat-label">Total Trainers</span>
+          <span class="stat-num">{{ stats.totalTrainers }}</span>
+        </div>
+        <div class="stat-trend up">Verified educators</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon-wrap purple">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+          </svg>
+        </div>
+        <div class="stat-info">
+          <span class="stat-label">Total Courses</span>
+          <span class="stat-num">{{ stats.totalCourses }}</span>
+        </div>
+        <div class="stat-trend up">Published content</div>
+      </div>
+
+      <div class="stat-card warning-card">
+        <div class="stat-icon-wrap amber">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </div>
+        <div class="stat-info">
+          <span class="stat-label">Pending Trainer Requests</span>
+          <span class="stat-num warn">{{ stats.pendingTrainerRequests }}</span>
+        </div>
+        <div class="stat-trend warn">Needs review</div>
+      </div>
+
+      <div class="stat-card warning-card">
+        <div class="stat-icon-wrap red">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+        </div>
+        <div class="stat-info">
+          <span class="stat-label">Pending Course Approvals</span>
+          <span class="stat-num warn">{{ stats.pendingCourses }}</span>
+        </div>
+        <div class="stat-trend warn">Awaiting approval</div>
+      </div>
+
+    </div>
+
+    <!-- QUICK ACTIONS -->
+    <div class="section-header" style="margin-top: 36px;">
+      <h2 class="section-title">Quick Actions</h2>
+    </div>
+
+    <div class="actions-grid">
+
+      <div class="action-card" routerLink="/admin/users">
+        <div class="action-icon blue">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+          </svg>
+        </div>
+        <div class="action-info">
+          <div class="action-title">Manage Users</div>
+          <div class="action-desc">View, edit roles and toggle user status</div>
+        </div>
+        <span class="action-arrow">→</span>
+      </div>
+
+      <div class="action-card" routerLink="/admin/course-approvals">
+        <div class="action-icon purple">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+        </div>
+        <div class="action-info">
+          <div class="action-title">Course Approvals</div>
+          <div class="action-desc">Review and approve pending courses</div>
+        </div>
+        <span class="action-arrow">→</span>
+      </div>
+
+      <div class="action-card" routerLink="/admin/trainer-requests">
+        <div class="action-icon amber">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="8" r="6"/>
+            <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>
+          </svg>
+        </div>
+        <div class="action-info">
+          <div class="action-title">Trainer Requests</div>
+          <div class="action-desc">Approve or reject trainer applications</div>
+        </div>
+        <span class="action-arrow">→</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

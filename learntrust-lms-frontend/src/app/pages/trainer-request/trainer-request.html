@@ -1,0 +1,66 @@
+<app-navbar></app-navbar>
+
+<div class="request-wrapper">
+
+  <!-- LEFT HERO -->
+  <div class="hero">
+    <h1>Come teach with us</h1>
+    <p>
+      Become a trainer and share your knowledge with learners.
+      Our team will review your application.
+    </p>
+  </div>
+
+  <!-- RIGHT FORM -->
+  <div class="form-card">
+
+    <h2>Become a Trainer</h2>
+
+    <form (ngSubmit)="submitRequest()" #reqForm="ngForm">
+
+      <label>Full name</label>
+      <input
+        type="text"
+        name="fullName"
+        [(ngModel)]="form.fullName"
+        required
+      />
+
+      <label>Email</label>
+      <input
+        type="email"
+        name="email"
+        [(ngModel)]="form.email"
+        required
+      />
+
+      <label>Area of expertise</label>
+      <input
+        type="text"
+        name="expertise"
+        [(ngModel)]="form.expertise"
+        required
+      />
+
+      <label>Why do you want to become a trainer?</label>
+      <textarea
+        name="message"
+        [(ngModel)]="form.message"
+        required>
+      </textarea>
+
+      <button
+        type="submit"
+        class="btn-primary"
+        [disabled]="isSubmitting || reqForm.invalid">
+        {{ isSubmitting ? 'Submitting...' : 'Submit Application' }}
+      </button>
+
+      <p class="success" *ngIf="successMsg">{{ successMsg }}</p>
+      <p class="error" *ngIf="errorMsg">{{ errorMsg }}</p>
+
+    </form>
+
+  </div>
+
+</div>

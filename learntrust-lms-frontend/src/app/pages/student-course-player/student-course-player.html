@@ -1,0 +1,242 @@
+<app-navbar></app-navbar>
+
+<div class="player-layout">
+
+  <!-- LOADING -->
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading course...</p>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div *ngIf="!loading && course" class="course-wrapper">
+
+    <!-- left-->
+    <div class="course-main">
+
+      <!-- COURSE HEADER -->
+      <div class="course-header">
+
+        <h1 class="course-title">{{ course.title }}</h1>
+        <p class="course-description">{{ course.description }}</p>
+
+        <div class="progress-container">
+          <div class="progress-info">
+            <span>Course Progress</span>
+            <span>{{ progressPercentage }}%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill"
+                 [style.width.%]="progressPercentage">
+            </div>
+          </div>
+        </div>
+
+        <!-- CERTIFICATE -->
+        <ng-container *ngIf="progressPercentage === 100">
+          <button
+            *ngIf="completionStatus === 'COMPLETED'"
+            class="certificate-btn"
+            (click)="requestCertificate()">
+            Request Certificate
+          </button>
+          <p *ngIf="completionStatus === 'PENDING_APPROVAL'"
+             style="margin-top:12px;color:#f59e0b;
+                    font-weight:600;font-size:0.85rem;">
+             Waiting for trainer approval
+          </p>
+          <button
+            *ngIf="completionStatus === 'APPROVED'"
+            class="certificate-btn"
+            (click)="downloadCertificate()">
+            ⬇ Download Certificate
+          </button>
+        </ng-container>
+
+      </div>
+
+      <div class="content-viewer">
+
+        <div *ngIf="!selectedContent" class="no-content">
+          <p> Select a lesson from the sidebar to begin</p>
+        </div>
+
+        <!-- VIDEO -->
+        <div *ngIf="selectedContent?.contentType === 'VIDEO'"
+             class="video-wrapper">
+          <video
+            controls
+            class="video-player"
+            (ended)="onVideoEnded()"
+            [src]="selectedContent.contentUrl">
+          </video>
+          <button
+            class="complete-btn"
+            (click)="markContentComplete()"
+            [disabled]="!videoEnded">
+            {{ videoEnded ? 'Mark Complete' : 'Watch to complete' }}
+          </button>
+        </div>
+
+        <!-- TEXT -->
+        <div *ngIf="selectedContent?.contentType === 'TEXT'"
+             class="text-content">
+          <h3>{{ selectedContent.title }}</h3>
+          <p class="text-body">{{ selectedContent.contentText }}</p>
+          <button class="complete-btn" (click)="markContentComplete()">
+            Mark Complete
+          </button>
+        </div>
+
+        <!-- PDF -->
+        <div *ngIf="selectedContent?.contentType === 'PDF'"
+             class="pdf-viewer">
+          <iframe
+            [src]="safeUrl(selectedContent.contentUrl)"
+            width="100%"
+            height="600">
+          </iframe>
+          <button class="complete-btn" (click)="markContentComplete()">
+            Mark Complete
+          </button>
+        </div>
+
+      </div>
+
+      <!-- quiz section -->
+     
+      <div class="quiz-container">
+
+        <ng-container *ngFor="let m of modules">
+          <ng-container *ngFor="let quiz of m.quizzes">
+
+            <!-- only show if quiz has real questions -->
+            <ng-container
+              *ngIf="quiz.parsedQuestions && quiz.parsedQuestions.length > 0">
+
+              <h2 style="margin-bottom:16px;">Module Quiz</h2>
+
+              <div class="quiz-card">
+
+                <h3 class="quiz-title" *ngIf="quiz.title">
+                  {{ quiz.title }}
+                </h3>
+
+                <!-- questions -->
+                <ng-container
+                  *ngFor="let q of quiz.parsedQuestions; let qi = index">
+
+                  <div class="question-block"
+                       *ngIf="q && q.questionText">
+
+                    <p class="question">
+                      <b>Q{{ qi + 1 }}.</b> {{ q.questionText }}
+                    </p>
+
+                    <!-- MCQ -->
+                    <div *ngIf="q.type === 'MCQ'" class="options">
+                      <ng-container
+                        *ngFor="let opt of q.options; let oi = index">
+                        <ng-container *ngIf="opt">
+                          <label class="option">
+                            <input
+                              type="radio"
+                              [name]="'quiz' + quiz.id + 'q' + qi"
+                              [value]="oi"
+                              [(ngModel)]="studentAnswers[quiz.id + '_' + qi]"
+                              [disabled]="quizAttempted[quiz.id]">
+                            {{ opt }}
+                          </label>
+                        </ng-container>
+                      </ng-container>
+                    </div>
+
+                    <!-- DESCRIPTIVE -->
+                    <div *ngIf="q.type === 'DESCRIPTIVE'">
+                      <textarea
+                        [(ngModel)]="studentAnswers[quiz.id + '_' + qi]"
+                        placeholder="Write your answer..."
+                        [disabled]="quizAttempted[quiz.id]">
+                      </textarea>
+                    </div>
+
+                  </div>
+
+                </ng-container>
+
+                <!-- submit -->
+                <button
+                  class="submit-quiz-btn"
+                  (click)="submitQuiz(quiz)"
+                  [disabled]="quizAttempted[quiz.id]">
+                  {{ quizAttempted[quiz.id] ? 'Submitted ✓' : 'Submit Quiz' }}
+                </button>
+
+                <!-- result -->
+                <div *ngIf="quizResults[quiz.id]" class="quiz-result">
+                  <p>
+                    Score:
+                    <strong>{{ quizResults[quiz.id].score }}</strong>
+                    / {{ quizResults[quiz.id].total }}
+                  </p>
+                  <p *ngIf="quizResults[quiz.id].passed" class="pass">
+                    ✅ Passed!
+                  </p>
+                  <p *ngIf="!quizResults[quiz.id].passed" class="fail">
+                    ❌ Failed — passing score: {{ quiz.passingScore }}%
+                  </p>
+                </div>
+
+              </div>
+
+            </ng-container>
+
+          </ng-container>
+        </ng-container>
+
+      </div>
+      <!-- end quiz-container -->
+
+    </div>
+    <!-- end course-main -->
+
+    <!-- sidebar -->
+    <div class="course-sidebar">
+
+      <p class="sidebar-title">Course Content</p>
+
+      <div *ngFor="let m of modules" class="module-card">
+
+        <div class="module-header" (click)="toggleModule(m)">
+          <span>{{ m.title }}</span>
+          <span class="arrow" [class.open]="m.expanded">▶</span>
+        </div>
+
+        <div class="module-body" *ngIf="m.expanded">
+
+          <div
+            class="lesson"
+            *ngFor="let c of m.contents"
+            (click)="selectContent(c)"
+            [class.active]="selectedContent?.id === c.id">
+            ▶ {{ c.title }}
+          </div>
+
+          <div
+            class="lesson quiz-lesson"
+            *ngIf="m.quizzes?.length > 0">
+            {{ m.quizzes.length }}
+            Quiz{{ m.quizzes.length > 1 ? 'zes' : '' }}
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+

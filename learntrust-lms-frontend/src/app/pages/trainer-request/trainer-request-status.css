@@ -1,0 +1,41 @@
+.status-wrapper {
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg, #f0f4ff);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.status-card {
+  background: #fff;
+  padding: 44px;
+  border-radius: 20px;
+  text-align: center;
+  border: 1.5px solid #e8edf5;
+  box-shadow: 0 10px 32px rgba(0,0,0,0.07);
+  max-width: 500px;
+  width: 90%;
+}
+
+:host-context(.dark-theme) .status-card {
+  background: #1e293b;
+  border-color: #334155;
+  color: #f1f5f9;
+}
+
+.pending {
+  color: var(--primary, #1e3a8a); /* ← was hardcoded #a435f0 */
+  font-weight: 700;
+  margin-top: 14px;
+  font-size: 1rem;
+}
+
+.note {
+  margin-top: 10px;
+  color: #64748b;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+:host-context(.dark-theme) .note { color: #94a3b8; }

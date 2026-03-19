@@ -1,0 +1,15 @@
+{
+  "files.autoSave": "off",
+  "editor.formatOnSave": false,
+  "editor.formatOnType": false,
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": false
+  },
+  "files.associations": {
+    "*.html": "html",
+    "*.ts": "typescript",
+    "*.css": "css"
+  }
+}

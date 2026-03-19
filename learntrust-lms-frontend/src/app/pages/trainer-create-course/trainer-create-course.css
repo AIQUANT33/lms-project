@@ -1,0 +1,107 @@
+.create-container {
+  min-height: 100vh;
+  background: var(--bg, #f0f4ff);
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+:host-context(.dark-theme) .create-container {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.create-card {
+  width: 520px;
+  background: #fff;
+  padding: 36px;
+  border-radius: 18px;
+  border: 1.5px solid #e8edf5;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.07);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+:host-context(.dark-theme) .create-card {
+  background: #1e293b;
+  border-color: #334155;
+  color: #f1f5f9;
+}
+
+.create-card h1 {
+  margin-bottom: 6px;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text, #111827);
+}
+
+:host-context(.dark-theme) .create-card h1 { color: #f1f5f9; }
+
+.subtitle {
+  color: #64748b;
+  margin-bottom: 24px;
+  font-size: 0.85rem;
+}
+
+:host-context(.dark-theme) .subtitle { color: #94a3b8; }
+
+label {
+  display: block;
+  margin-top: 16px;
+  margin-bottom: 6px;
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: var(--text, #111827);
+}
+
+:host-context(.dark-theme) label { color: #e2e8f0; }
+
+input, textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 9px;
+  border: 1.5px solid #e2e8f0;
+  font-size: 0.85rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: #fff;
+  color: var(--text, #111827);
+  transition: border-color 0.2s;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--secondary, #0ea5e9);
+  box-shadow: 0 0 0 3px rgba(14,165,233,0.12);
+}
+
+:host-context(.dark-theme) input,
+:host-context(.dark-theme) textarea {
+  background: #0f172a;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+
+textarea { min-height: 120px; resize: vertical; }
+
+.btn-primary {
+  width: 100%;
+  margin-top: 24px;
+  padding: 12px;
+  background: var(--primary, #1e3a8a); /* ← was hardcoded #a435f0 */
+  color: white;
+  border: none;
+  border-radius: 9px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary:hover {
+  background: var(--secondary, #0ea5e9);
+  transform: translateY(-1px);
+}
+
+.success { color: #16a34a; margin-top: 12px; font-size: 0.85rem; }
+.error   { color: #dc2626; margin-top: 12px; font-size: 0.85rem; }

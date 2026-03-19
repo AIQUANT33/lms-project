@@ -1,0 +1,56 @@
+<div class="login-container"> <!--outer wrapper for styling-->
+
+  <!-- LEFT BRAND PANEL -->
+  <div class="brand-panel">
+    <h1>LearnTrust</h1>
+    <p class="tagline">Your Learning Journey Starts Here</p>
+    <p class="sub">Master skills. Earn Blockchain certificates.</p>
+  </div>
+
+  <!-- RIGHT LOGIN CARD -->
+  <div class="form-panel">
+    <div class="login-card">
+
+      <h2>Welcome back</h2>
+
+      <form (ngSubmit)="login()" #loginForm="ngForm"> <!--when user clicks login ->call login() in ts (enables validation)-->
+       
+        <!-- two way binding with email variables in login.ts -->
+         <!-- user types -> this.emailupdates -->
+        <label>Email</label>
+        <input
+          type="email"
+          [(ngModel)]="email"
+          name="email"
+          required
+        />
+
+
+      <!-- two way binding with password variables in login.ts -->
+        <label>Password</label>  <!--binds to this.password in login.ts-->
+        <input
+          type="password"
+          [(ngModel)]="password"
+          name="password"
+          required
+        />
+
+        <!--button is disabled if email/password is empyty or email is in invalid format -->
+        <button type="submit" [disabled]="loginForm.invalid">
+          Login
+        </button>
+
+         <!--if error message exists, display it -->
+        <p class="error" *ngIf="errorMsg">{{ errorMsg }}</p>
+
+        <p class="register-link">
+          New here?
+          <a routerLink="/register">Create account</a>
+        </p>
+
+      </form>
+
+    </div>
+  </div>
+
+</div>

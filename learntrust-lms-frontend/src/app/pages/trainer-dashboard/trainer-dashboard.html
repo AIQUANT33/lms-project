@@ -1,0 +1,124 @@
+<app-navbar></app-navbar>
+
+<div class="trainer-container">
+
+  <!-- HERO -->
+  <div class="trainer-hero">
+    <div class="hero-bg-art">
+      <div class="art-circle c1"></div>
+      <div class="art-circle c2"></div>
+      <div class="art-circle c3"></div>
+    </div>
+    <div class="hero-left">
+      <div class="hero-tag">Trainer Portal</div>
+      <h1 class="hero-title">Welcome back,
+        <span class="hero-name"> {{ trainerName || 'Trainer' }}!</span>
+      </h1>
+      <p class="hero-desc">
+        Manage your courses, track student progress
+        and approve certificates all in one place.
+      </p>
+      <div class="hero-actions">
+        <button routerLink="/trainer/create-course"
+                class="btn-hero-primary">
+          + Create Course
+        </button>
+        <button routerLink="/trainer/completions"
+                class="btn-hero-ghost">
+          Approve Certificates
+        </button>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat">
+        <span class="hstat-num">{{ courses.length }}</span>
+        <span class="hstat-label">Total Courses</span>
+      </div>
+      <div class="hstat">
+        <span class="hstat-num">{{ publishedCount }}</span>
+        <span class="hstat-label">Published</span>
+      </div>
+      <div class="hstat">
+        <span class="hstat-num">{{ draftCount }}</span>
+        <span class="hstat-label">Drafts</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOADING -->
+  <div class="loading-state" *ngIf="loading">
+    <div class="spinner"></div>
+    <p>Loading your workspace...</p>
+  </div>
+
+  <!-- EMPTY -->
+  <div class="empty-state" *ngIf="!loading && courses.length === 0">
+    <div class="empty-icon"></div>
+    <h3>No courses yet</h3>
+    <p>Create your first course and start teaching today.</p>
+    <button routerLink="/trainer/create-course"
+            class="btn-hero-primary">
+      + Create First Course
+    </button>
+  </div>
+
+  <p class="error-msg" *ngIf="errorMsg">{{ errorMsg }}</p>
+
+  <!-- SECTION HEADER -->
+  <div class="section-header"
+       *ngIf="!loading && courses.length > 0">
+    <h2 class="section-title">My Courses</h2>
+    <span class="section-count">{{ courses.length }} total</span>
+  </div>
+
+  <!-- COURSE GRID -->
+  <div class="course-grid"
+       *ngIf="!loading && courses.length > 0">
+
+    <div class="course-card" *ngFor="let course of courses">
+
+      <div class="card-accent"
+           [ngClass]="'accent-' + (course?.status | lowercase)">
+      </div>
+
+      <div class="card-body">
+        <div class="card-top">
+          <span class="status-badge"
+                [ngClass]="getStatusClass(course?.status)">
+            {{ course?.status }}
+          </span>
+        </div>
+        <h3 class="card-title">{{ course?.title }}</h3>
+        <p class="card-desc">
+          {{ course?.description || 'No description provided.' }}
+        </p>
+      </div>
+
+      <div class="card-footer">
+
+        <button
+          [routerLink]="['/trainer/course', course.courseId]"
+          class="btn-manage">
+          Manage Course →
+        </button>
+
+        <button
+          *ngIf="course?.status === 'DRAFT'"
+          class="btn-submit"
+          (click)="submitForReview(course.courseId)">
+          Submit for Review
+        </button>
+
+        <!-- shows for ALL courses
+        <button
+          class="btn-delete"
+          (click)="deleteCourse(course.courseId, course.title)">
+          🗑 Delete
+        </button> -->
+
+      </div>
+
+    </div>
+  </div>
+
+</div>

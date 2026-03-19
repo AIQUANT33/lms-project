@@ -1,0 +1,68 @@
+<app-navbar></app-navbar>
+
+<div class="create-container">
+
+  <div class="create-card">
+
+    <h1>Create New Course</h1>
+    <p class="subtitle">
+      Start drafting your training program
+    </p>
+
+    <form (ngSubmit)="createCourse()" #courseForm="ngForm">
+
+      <!-- TITLE -->
+      <label>Course Title</label>
+      <input
+        type="text"
+        name="title"
+        [(ngModel)]="form.title" 
+        required
+        placeholder="Enter course title"
+      />
+
+      <!-- DESCRIPTION -->
+      <label>Description</label>
+      <textarea
+        name="description"
+        [(ngModel)]="form.description"
+        required
+        placeholder="Describe your course">
+      </textarea>
+      
+
+    
+ 
+
+
+      <!-- BUTTON -->
+      <button
+        type="submit"
+        class="btn-primary"
+        [disabled]="isSubmitting || courseForm.invalid">
+
+        {{ isSubmitting ? 'Saving...' : 'Save Draft' }}
+      </button>
+
+      <!-- messages -->
+      <p class="success" *ngIf="successMsg">{{ successMsg }}</p>
+      <p class="error" *ngIf="errorMsg">{{ errorMsg }}</p>
+
+    </form>
+
+  </div>
+</div>
+
+
+
+<!--selectedVideo (File)
+   ↓
+FormData created
+   ↓
+POST → Cloudinary
+   ↓
+Cloudinary stores video
+   ↓
+Cloudinary returns secure_url
+   ↓
+videoUrl saved in component-->

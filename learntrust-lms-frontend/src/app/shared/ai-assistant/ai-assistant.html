@@ -1,0 +1,87 @@
+<!-- Floating AI button -->
+
+
+
+<div class="ai-button" (click)="toggle()">
+  <img src="assets/ai/chatbot.png" class="robot-icon">
+</div>
+
+<!-- Chat Popup -->
+<div
+  class="ai-popup"
+  *ngIf="isOpen"
+  [class.fullscreen]="isFullscreen"
+  [class.light-theme]="lightTheme"
+>
+
+  <!-- Header -->
+  <div class="ai-header">
+
+    <div class="ai-header-left">
+
+      <div class="ai-avatar">
+        <img src="assets/ai/chatbot.png">
+      </div>
+
+      <div class="ai-title">
+        AI Learning Assistant
+        <div class="ai-subtitle">
+          Your personal learning helper
+        </div>
+      </div>
+
+    </div>
+
+    <div class="header-actions">
+
+      <span title="Toggle Theme" (click)="lightTheme = !lightTheme">
+        {{ lightTheme ? '🌙' : '☀️' }}
+      </span>
+
+      <span title="Fullscreen" (click)="toggleFullscreen()">
+        ⤢
+      </span>
+
+      <span title="Close" (click)="toggle()">
+        ✕
+      </span>
+
+    </div>
+
+  </div>
+
+  <!-- Chat messages -->
+  <div class="chat-body" #chatBody>
+
+    <div *ngFor="let msg of messages"
+         class="message"
+         [ngClass]="msg.sender">
+
+      <div class="avatar" *ngIf="msg.sender === 'ai'">
+        <img src="assets/ai/chatbot.png">
+      </div>
+
+      <div class="bubble" [innerHTML]="msg.text"></div>
+
+    </div>
+
+    <div class="typing" *ngIf="loading">
+      AI is thinking...
+    </div>
+
+  </div>
+
+  <!-- Input -->
+  <div class="chat-input">
+
+    <input
+      [(ngModel)]="question"
+      placeholder="Ask about your course..."
+      (keyup.enter)="sendMessage()"
+    />
+
+    <button (click)="sendMessage()">➤</button>
+
+  </div>
+
+</div>

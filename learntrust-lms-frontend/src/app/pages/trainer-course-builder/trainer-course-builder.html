@@ -1,0 +1,396 @@
+<app-navbar></app-navbar>
+
+<div class="builder-container">
+
+<h1 class="page-title">Course Builder</h1>
+
+<!-- add module -->
+
+<div class="add-module-card">
+
+<input
+[(ngModel)]="newModuleTitle"
+placeholder="Module title"
+class="input">
+
+<button
+class="primary-btn"
+(click)="addModule()">
+Add Module
+</button>
+
+</div>
+
+
+<!-- module list-->
+
+<div *ngFor="let module of modules" class="module-card">
+
+<!-- MODULE HEADER -->
+
+<div class="module-header">
+
+<div class="module-title" (click)="toggleModule(module)">
+<span class="arrow">{{module.expanded ? '▾' : '▸'}}</span>
+<h3>{{module.title}}</h3>
+</div>
+
+<div>
+<button class="icon-btn" (click)="moveUp(module)">⬆</button>
+<button class="icon-btn" (click)="moveDown(module)">⬇</button>
+<button class="delete-btn" (click)="deleteModule(module)">🗑</button>
+</div>
+
+</div>
+
+
+<!--module body -->
+
+<div *ngIf="module.expanded" class="module-body">
+
+
+<!-- add content -->
+
+<div class="content-builder">
+
+<h4>Add Content</h4>
+
+<input
+[(ngModel)]="module.newContentTitle"
+placeholder="Content title"
+class="input">
+
+<select
+[(ngModel)]="module.newContentType"
+class="input">
+
+<option value="VIDEO">Video</option>
+
+<option value="TEXT">Text</option>
+
+</select>
+
+
+<textarea
+*ngIf="module.newContentType === 'TEXT'"
+[(ngModel)]="module.newContentText"
+placeholder="Content text"
+class="textarea">
+</textarea>
+
+
+<input
+*ngIf="module.newContentType !== 'TEXT'"
+type="file"
+(change)="uploadFile($event,module)">
+
+
+<button
+class="secondary-btn"
+(click)="addContent(module)">
+Add Content
+</button>
+
+</div>
+
+
+
+<!-- content list -->
+
+<div *ngFor="let content of module.contents" class="content-card">
+
+<div
+class="content-header"
+(click)="toggleContent(content)">
+
+<span class="arrow">
+{{content.expanded ? '▼' : '▶'}}
+</span>
+
+<strong>{{content.title}}</strong>
+
+</div>
+
+
+<div *ngIf="content.expanded">
+
+<input
+[(ngModel)]="content.title"
+class="input">
+
+<select
+[(ngModel)]="content.contentType"
+class="input">
+
+<option value="VIDEO">Video</option>
+
+<option value="TEXT">Text</option>
+
+</select>
+
+
+<textarea
+*ngIf="content.contentType === 'TEXT'"
+[(ngModel)]="content.contentText"
+class="textarea"
+placeholder="Content text">
+</textarea>
+
+
+<div style="margin-top:10px">
+
+<button
+class="secondary-btn"
+(click)="updateContent(module,content)">
+Save
+</button>
+
+<button
+class="delete-btn"
+(click)="deleteContent(module,content)">
+Delete
+</button>
+
+</div>
+
+
+<!--content preview  -->
+
+<div class="content-preview">
+
+<div *ngIf="content.contentType === 'TEXT'">
+
+<h4>Preview</h4>
+
+<p style="white-space: pre-line">
+{{content.contentText}}
+</p>
+
+</div>
+
+
+<!-- VIDEO PREVIEW -->
+
+<div *ngIf="content.contentType === 'VIDEO' && content.contentUrl">
+
+<h4>Video Preview</h4>
+
+<video width="600" controls>
+
+<source
+[src]="content.contentUrl"
+type="video/mp4">
+
+</video>
+
+</div>
+
+
+<!-- PDF PREVIEW -->
+
+<div *ngIf="content.contentType === 'PDF' && content.contentUrl">
+
+<h4>PDF Preview</h4>
+
+<iframe
+[src]="safePdfUrl(content.contentUrl)"
+width="100%"
+height="500"
+style="border:none">
+</iframe>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- quiz builder  -->
+
+<div class="quiz-builder">
+
+<h4> Module Quiz</h4>
+
+<input
+[(ngModel)]="module.quizTitle"
+placeholder="Quiz title"
+class="input">
+
+
+
+
+<button
+class="secondary-btn"
+(click)="addQuestion(module)">
+➕ Add Question
+</button>
+
+
+<!-- QUESTION LOOP -->
+
+<div
+*ngFor="let ques of module.questions; let qi = index"
+class="question-card">
+
+<input
+[(ngModel)]="ques.questionText"
+placeholder="Enter question"
+class="input">
+
+
+<select
+[(ngModel)]="ques.type"
+class="input">
+
+<option value="MCQ">MCQ</option>
+<option value="DESCRIPTIVE">DESCRIPTIVE</option>
+
+</select>
+
+
+
+<!-- mcq options -->
+
+<div *ngIf="ques.type === 'MCQ'">
+
+<div
+*ngFor="let opt of ques.options; let oi=index; trackBy: trackByOption"
+class="option-row">
+
+<input
+[(ngModel)]="ques.options[oi]"
+placeholder="Option {{oi + 1}}"
+class="input">
+
+<input
+type="radio"
+[name]="'correct'+qi"
+[value]="oi"
+[(ngModel)]="ques.correctAnswer">
+
+<button
+class="delete-btn small"
+type="button"
+(click)="removeOption(ques,oi)">
+✖
+</button>
+
+</div>
+
+
+<button
+class="secondary-btn"
+type="button"
+(click)="ques.options.push('')">
+➕ Add Option
+</button>
+
+</div>
+
+
+
+<!-- descriptive -->
+
+<div *ngIf="ques.type === 'DESCRIPTIVE'">
+
+<textarea
+[(ngModel)]="ques.descriptiveAnswer"
+placeholder="Expected answer"
+class="textarea">
+</textarea>
+
+</div>
+
+</div>
+
+
+<!-- save quiz button -->
+
+<button
+class="primary-btn"
+style="margin-top:15px"
+(click)="createModuleQuiz(module)">
+💾 Save Quiz
+</button>
+
+
+
+<!-- saved quizzes -->
+
+<div class="saved-quizzes" *ngIf="module.quizzes?.length">
+
+<h4> Saved Quizzes</h4>
+
+<div
+class="quiz-card"
+*ngFor="let quiz of module.quizzes">
+
+<div class="quiz-header">
+
+<strong>{{quiz.title}}</strong>
+
+<button
+class="delete-btn small"
+style="float:right"
+(click)="deleteQuiz(module, quiz)">
+🗑
+</button>
+
+</div>
+
+
+<div class="quiz-body">
+
+<div
+*ngFor="let ques of parseQuestions(quiz.assessmentData); let qi=index"
+class="question-preview">
+
+<p>
+<strong>Q{{qi+1}}.</strong> {{ques.questionText}}
+</p>
+
+
+<div *ngIf="ques.type === 'MCQ'">
+
+<div
+*ngFor="let opt of ques.options; let oi=index"
+style="padding-left:20px">
+
+<span
+[style.fontWeight]="oi === ques.correctAnswer ? 'bold':'normal'">
+
+{{opt}}
+
+</span>
+
+</div>
+
+</div>
+
+
+<div *ngIf="ques.type === 'DESCRIPTIVE'">
+
+<p style="padding-left:20px">
+Expected Answer: {{ques.descriptiveAnswer}}
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+</div>

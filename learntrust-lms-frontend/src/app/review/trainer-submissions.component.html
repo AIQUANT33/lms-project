@@ -1,0 +1,21 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+
+  <h2>📥 Student Submissions</h2>
+
+  <input [(ngModel)]="quizId" placeholder="Enter Quiz ID" />
+
+  <button (click)="loadSubmissions()">Load Submissions</button>
+
+  <div *ngFor="let sub of submissions" class="card">
+
+    <p><b>{{ sub.student?.name }}</b></p>
+    <p>Status: {{ sub.reviewStatus }}</p>
+
+    <button (click)="review(sub, 'APPROVED')">Approve</button>
+    <button (click)="review(sub, 'REJECTED')">Reject</button>
+
+  </div>
+
+</div>

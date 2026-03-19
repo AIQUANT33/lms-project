@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#f0f4ff"/>
+  
+  <!-- Book base -->
+  <rect x="80" y="120" width="180" height="120" rx="8" fill="#4a6cf7"/>
+  <rect x="90" y="130" width="160" height="100" rx="4" fill="#ffffff"/>
+  
+  <!-- Book pages -->
+  <rect x="100" y="140" width="60" height="80" fill="#e8eef5"/>
+  <rect x="105" y="145" width="50" height="5" fill="#c5d1e0"/>
+  <rect x="105" y="155" width="50" height="3" fill="#c5d1e0"/>
+  <rect x="105" y="162" width="50" height="3" fill="#c5d1e0"/>
+  <rect x="105" y="169" width="50" height="3" fill="#c5d1e0"/>
+  <rect x="105" y="176" width="50" height="3" fill="#c5d1e0"/>
+  <rect x="105" y="183" width="50" height="3" fill="#c5d1e0"/>
+  <rect x="105" y="190" width="50" height="3" fill="#c5d1e0"/>
+  <rect x="105" y="197" width="50" height="3" fill="#c5d1e0"/>
+  <rect x="105" y="204" width="50" height="3" fill="#c5d1e0"/>
+  
+  <!-- Book binding -->
+  <rect x="170" y="140" width="60" height="80" fill="#e8eef5"/>
+  <rect x="175" y="145" width="50" height="5" fill="#c5d1e0"/>
+  <rect x="175" y="155" width="50" height="3" fill="#c5d1e0"/>
+  <rect x="175" y="162" width="50" height="3" fill="#c5d1e0"/>
+  <rect x="175" y="169" width="50" height="3" fill="#c5d1e0"/>
+  <rect x="175" y="176" width="50" height="3" fill="#c5d1e0"/>
+  <rect x="175" y="183" width="50" height="3" fill="#c5d1e0"/>
+  <rect x="175" y="190" width="50" height="3" fill="#c5d1e0"/>
+  <rect x="175" y="197" width="50" height="3" fill="#c5d1e0"/>
+  <rect x="175" y="204" width="50" height="3" fill="#c5d1e0"/>
+  
+  <!-- Certificate/doc -->
+  <rect x="220" y="80" width="80" height="100" rx="4" fill="#ffd700"/>
+  <rect x="225" y="85" width="70" height="90" rx="2" fill="#fff8dc"/>
+  
+  <!-- Certificate lines -->
+  <rect x="235" y="95" width="50" height="4" fill="#d4af37" rx="2"/>
+  <rect x="235" y="105" width="40" height="3" fill="#d4af37" rx="1"/>
+  <rect x="235" y="115" width="50" height="4" fill="#d4af37" rx="2"/>
+  <rect x="235" y="125" width="30" height="3" fill="#d4af37" rx="1"/>
+  <rect x="235" y="135" width="50" height="4" fill="#d4af37" rx="2"/>
+  <rect x="235" y="145" width="40" height="3" fill="#d4af37" rx="1"/>
+  <rect x="235" y="155" width="50" height="4" fill="#d4af37" rx="2"/>
+  
+  <!-- Seal -->
+  <circle cx="275" cy="160" r="15" fill="#e63946"/>
+  <circle cx="275" cy="160" r="12" fill="#ff6b6b"/>
+  <path d="M270 160 L275 165 L280 155" stroke="#fff" stroke-width="2" fill="none"/>
+  
+  <!-- Brain/AI icon -->
+  <circle cx="100" cy="70" r="30" fill="#4ecdc4"/>
+  <circle cx="100" cy="70" r="25" fill="#ffffff"/>
+  <path d="M85 70 Q100 55 115 70 Q100 85 85 70" fill="#4ecdc4"/>
+  <circle cx="90" cy="65" r="3" fill="#4ecdc4"/>
+  <circle cx="110" cy="65" r="3" fill="#4ecdc4"/>
+  <circle cx="100" cy="78" r="3" fill="#4ecdc4"/>
+  
+  <!-- Connecting lines -->
+  <path d="M130 70 Q180 50 220 80" stroke="#4ecdc4" stroke-width="2" stroke-dasharray="4"/>
+  <path d="M170 70 Q200 100 220 120" stroke="#ffd700" stroke-width="2" stroke-dasharray="4"/>
+</svg>

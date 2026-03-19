@@ -1,0 +1,244 @@
+<app-navbar></app-navbar>
+
+<div class="dashboard-container">
+
+<!-- HERO (Hidden on My Learning page) -->
+
+<div class="dashboard-hero" *ngIf="!isMyLearningPage">
+
+<div class="profile">
+
+<div class="avatar-wrapper">
+
+<img *ngIf="profileImage" [src]="profileImage" class="avatar"/>
+
+<div *ngIf="!profileImage" class="avatar placeholder"></div>
+
+<input
+type="file"
+accept="image/*"
+(change)="uploadImage($event)"
+class="upload-input"
+/>
+
+<button *ngIf="profileImage"
+class="remove-btn"
+(click)="removeImage()">
+Remove
+</button>
+
+</div>
+
+<h3>{{ userName }}</h3>
+
+
+</div>
+
+<div class="stats">
+
+<div class="stat-card">
+<h4>My Courses</h4>
+<p>{{totalCourses}}</p>
+</div>
+
+<div class="stat-card">
+<h4>Active Enrollments</h4>
+<p>{{activeCount}}</p>
+</div>
+
+<div class="stat-card">
+<h4>Completed</h4>
+<p>{{completedCount}}</p>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- AI SMART STUDY (Hidden on My Learning page) -->
+
+<div class="ai-panel" *ngIf="!isMyLearningPage">
+
+<div class="ai-panel-header">
+
+<div>
+<h3>🤖 AI Smart Study</h3>
+<p>AI powered learning analytics</p>
+</div>
+
+<button
+class="ai-generate-btn"
+(click)="generateAIReport()">
+
+Generate AI Insights
+
+</button>
+
+</div>
+
+<div class="ai-summary-text"
+*ngIf="aiSummary"
+[innerHTML]="aiSummary">
+</div>
+
+</div>
+
+
+<!-- ANALYTICS DASHBOARD (Hidden on My Learning page) -->
+
+<div *ngIf="chartsLoaded && !isMyLearningPage" class="analytics-dashboard">
+
+<div class="chart-card">
+
+<h3>Learning Progress</h3>
+
+<canvas id="learningChart"></canvas>
+
+<p class="chart-info">
+Courses: {{analytics.totalCourses}} |
+Modules: {{analytics.modulesCompleted}} |
+Lessons: {{analytics.lessonsCompleted}}
+</p>
+
+</div>
+
+<div class="chart-card">
+
+<h3>Course Completion Ratio</h3>
+
+<canvas id="performanceChart"></canvas>
+
+<p class="chart-info">
+Completed: {{analytics.completedCourses}} |
+Active: {{analytics.activeCourses}}
+</p>
+
+</div>
+
+<div class="chart-card">
+
+<h3>Weekly Study Activity</h3>
+
+<canvas id="studyChart"></canvas>
+
+<p class="chart-info">
+Average Quiz Score: {{analytics.averageScore}}
+</p>
+
+</div>
+
+</div>
+
+
+
+<!-- MY LEARNING -->
+
+<section class="section">
+
+<h2>My Learning</h2>
+
+<h3 class="sub-title">Currently Enrolled</h3>
+
+<div class="course-grid">
+
+<div class="course-card"
+*ngFor="let course of enrolledCourses">
+
+<h3>{{course.title}}</h3>
+<p>{{course.description}}</p>
+
+<!-- PROGRESS BAR -->
+
+<div class="progress-bar">
+<div class="progress-fill"
+[style.width.%]="course.progress">
+</div>
+</div>
+
+<p class="progress-text">
+Progress: {{course.progress}}%
+</p>
+
+<button
+class="btn-primary"
+[routerLink]="['/learn',course.courseId]">
+
+Continue Learning
+
+</button>
+
+</div>
+
+</div>
+
+
+<h3 class="sub-title" style="margin-top:30px;">
+Completed Courses
+</h3>
+
+<div class="course-grid">
+
+<div class="course-card"
+*ngFor="let course of completedCourses">
+
+<h3>{{course.title}}</h3>
+
+<!-- REQUEST -->
+<button
+*ngIf="course.completionStatus === 'COMPLETED'"
+(click)="requestCertificate(course.courseId)"
+class="certificate-btn">
+Request Certificate
+</button>
+
+<!-- WAITING -->
+<p *ngIf="course.completionStatus === 'PENDING_APPROVAL'">
+ Waiting for trainer approval
+</p>
+
+<!-- DOWNLOAD -->
+<button
+*ngIf="course.completionStatus === 'APPROVED'"
+(click)="downloadCertificate(course.courseId)"
+class="certificate-btn">
+Download Certificate
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- EXPLORE COURSES (Hidden on My Learning page) -->
+
+<section class="section" *ngIf="!isMyLearningPage">
+
+<h2>Explore Courses</h2>
+
+<div class="course-grid">
+
+<div class="course-card"
+*ngFor="let course of availableCourses">
+
+<h3>{{course.title}}</h3>
+<p>{{course.description}}</p>
+
+<button
+class="btn-primary"
+(click)="handleEnroll(course.courseId)">
+
+Enroll Now
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+</div>

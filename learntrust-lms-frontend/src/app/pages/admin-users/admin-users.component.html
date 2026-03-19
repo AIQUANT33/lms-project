@@ -1,0 +1,48 @@
+<app-navbar></app-navbar>
+
+<div class="admin-container">
+
+  <h2 class="title"> User Management</h2>
+
+  <!-- LOADING -->
+  <div *ngIf="loading" class="loading">
+    Loading users...
+  </div>
+
+  <!-- USERS GRID -->
+  <div *ngIf="!loading && users.length > 0" class="users-grid">
+
+    <div *ngFor="let user of users" class="user-card">
+
+      <!-- HEADER -->
+      <div class="user-header">
+        <h3>{{ user.name }}</h3>
+        <span class="email">{{ user.email }}</span>
+      </div>
+
+      <!-- STATUS -->
+      <div class="status">
+        <span 
+          class="badge"
+          [ngClass]="user.status === 'ACTIVE' ? 'active' : 'inactive'">
+          ● {{ user.status }}
+        </span>
+      </div>
+
+      
+
+      <!-- BUTTON -->
+      <button class="toggle-btn" (click)="toggleStatus(user)">
+        Toggle Status
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- EMPTY -->
+  <div *ngIf="!loading && users.length === 0" class="empty">
+    No users found
+  </div>
+
+</div>
