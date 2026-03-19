@@ -24,9 +24,9 @@ public class Course {
     private String status;
 
   
-    @ManyToOne
+    @ManyToOne //many courses can belong to one trainer 
     @JoinColumn(name = "trainer_id", nullable = false)
-    @JsonIgnoreProperties({"password", "email", "walletAddress"})
+    @JsonIgnoreProperties({"password", "email", "walletAddress"}) //skip these fields when parsing
     private User trainer;
 
     @ManyToOne
@@ -38,6 +38,6 @@ public class Course {
 
     public Course() {
         this.createdAt = LocalDateTime.now();
-        this.status = "DRAFT";
+        this.status = "DRAFT"; //default
     }
 }

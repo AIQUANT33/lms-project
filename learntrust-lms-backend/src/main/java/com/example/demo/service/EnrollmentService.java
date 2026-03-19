@@ -25,6 +25,8 @@ public class EnrollmentService {
         this.courseRepository = courseRepository;
     }
 
+    //First it finds the student, then checks their role. 
+    // This prevents a trainer or admin from enrolling in a course using this endpoint. 
     public Enrollment enrollStudent(Long studentId, Long courseId) {
 
         User student = userRepository.findById(studentId)
@@ -34,17 +36,23 @@ public class EnrollmentService {
             throw new RuntimeException("Only students can enroll");
         }
 
-        Course course = courseRepository.findById(courseId)
+      //Finds the course then checks it's PUBLISHED.
+      //  A student cannot enroll in a DRAFT or SUBMITTED course. 
+      Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new RuntimeException("Course not found"));
 
         if (!"PUBLISHED".equals(course.getStatus())) {
             throw new RuntimeException("Course is not available");
         }
 
+
+        //prevent duplicate enrollment
         enrollmentRepository.findByStudentAndCourse(student, course)
                 .ifPresent(e -> {
                     throw new RuntimeException("Already enrolled");
                 });
+        //create enrollment
+        // link the student and course
 
         Enrollment enrollment = new Enrollment();
         enrollment.setStudent(student);
@@ -52,6 +60,8 @@ public class EnrollmentService {
 
         return enrollmentRepository.save(enrollment);
     }
+
+
 
     public List<Enrollment> getAllEnrollments() {
         return enrollmentRepository.findAll();
@@ -76,6 +86,9 @@ public class EnrollmentService {
     }
 
     //  STUDENT REQUEST
+    //This sets progress to 100 and status to PENDING_APPROVAL. 
+    // The enrollment goes into a waiting state — the trainer must now review and approve. 
+    //orElse(null) : creates new enrollment if it doesn't exist (defensive coding)
     public Enrollment markCourseComplete(Long studentId, Long courseId) {
 
         User student = userRepository.findById(studentId)
@@ -99,6 +112,8 @@ public class EnrollmentService {
 
         return enrollmentRepository.save(enrollment);
     }
+
+    
     public List<Enrollment> getByTrainer(Long trainerId) {
     return enrollmentRepository.findByCourseTrainerUserId(trainerId);
 }

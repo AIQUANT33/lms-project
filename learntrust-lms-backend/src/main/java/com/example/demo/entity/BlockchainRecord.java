@@ -14,10 +14,10 @@ public class BlockchainRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long blockchainId;
 
-    @OneToOne
+    @OneToOne //one blockchain record belongs to exactly one certificate, and one certificate has exactly one blockchain record. 
     @JoinColumn(name = "certificate_id", nullable = false, unique = true)
     private Certificate certificate;
-
+  
      @Column(nullable = false)
     private String nftTokenId;
 
@@ -54,3 +54,11 @@ public class BlockchainRecord {
     }
 }
 
+
+
+/*
+A separate audit table that links a certificate to its blockchain details
+ — transaction hash, NFT token ID, which network (Ethereum testnet), and when it was minted.
+  Exists as an extra layer of record keeping separate from the main certificate.
+
+*/

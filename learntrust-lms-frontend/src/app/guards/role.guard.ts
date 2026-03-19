@@ -51,6 +51,8 @@ export const roleGuard: CanActivateFn = (route: ActivatedRouteSnapshot) => {  //
   }
 };
 
+/**by this point we know the user is logged in. Now it checks which role they have:
+ */
 
 //COMPLETE RUNTINE FLOW 
 /* 

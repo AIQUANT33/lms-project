@@ -32,3 +32,6 @@ public class AssessmentAttempt {
         this.attemptedAt = LocalDateTime.now();
     }
 }
+
+
+//records a student's attempt at an assessment — their score and PASSED/FAILED

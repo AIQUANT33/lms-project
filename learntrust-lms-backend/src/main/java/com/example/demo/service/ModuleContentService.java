@@ -66,3 +66,5 @@ public class ModuleContentService {
         contentRepository.deleteById(contentId);
     }
 }
+
+//creates/updates/deletes content items inside modules

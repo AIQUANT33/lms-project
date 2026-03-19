@@ -22,3 +22,6 @@ public interface AssessmentSubmissionRepository
     @Query("SELECT COALESCE(AVG(a.score),0) FROM AssessmentSubmission a WHERE a.student = :student")
     Double findAverageScoreByStudent(@Param("student") User student);
 }
+
+
+//COALESCE : Use first non-null value — prevents null crashes in SQL

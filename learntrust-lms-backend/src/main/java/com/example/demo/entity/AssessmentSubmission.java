@@ -51,3 +51,6 @@ public class AssessmentSubmission {
         this.status = "PENDING";
     }
 }
+
+
+// stores the raw answers a student submitted, starts as PENDING, trainer reviews it

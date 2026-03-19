@@ -17,14 +17,14 @@ public class ModuleController {
         this.moduleService = moduleService;
     }
 
-    // ================= CREATE =================
+    // CREATE
     @PostMapping
     public Module createModule(@RequestParam Long courseId,
                                @RequestBody Module module) {
         return moduleService.createModule(courseId, module);
     }
 
-    // ================= GET BY COURSE =================
+    //  GET BY COURSE 
     @GetMapping("/course/{courseId}")
     public List<Module> getModulesByCourse(@PathVariable Long courseId) {
         return moduleService.getModulesByCourse(courseId);
@@ -39,7 +39,7 @@ public void moveDown(@PathVariable Long moduleId) {
     moduleService.moveModuleDown(moduleId);
 }
 
-    // ================= DELETE =================
+    //  DELETE 
     @DeleteMapping("/{moduleId}")
     public void deleteModule(@PathVariable Long moduleId) {
         moduleService.deleteModule(moduleId);

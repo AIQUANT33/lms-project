@@ -43,3 +43,5 @@ public class Assessment {
         this.createdAt = LocalDateTime.now();
     }
 }
+
+//a quiz (belongs to a module) or final exam (belongs to a course), stores all questions as JSON

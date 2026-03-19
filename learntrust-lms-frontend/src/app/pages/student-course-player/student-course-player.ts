@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
   imports: [CommonModule, FormsModule, NavbarComponent],
   templateUrl: './student-course-player.html',
   styleUrls: ['./student-course-player.css'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None //Makes CSS global — reaches into child components
 })
 export class StudentCoursePlayer implements OnInit, OnDestroy {
 
@@ -54,6 +54,14 @@ export class StudentCoursePlayer implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.routeSub?.unsubscribe();
   }
+
+  /** When you .subscribe() to something that keeps emitting (like route params), 
+   * it stays alive in memory even after the user navigates away.
+    ngOnDestroy is Angular's cleanup hook — it runs when the component is destroyed. 
+    .unsubscribe() stops listening and frees memory.
+     Without this, every time a student navigates to a course and back,
+      a new subscription piles up — this is called a memory leak.
+*/
 
   loadCourse() {
     this.loading = true;

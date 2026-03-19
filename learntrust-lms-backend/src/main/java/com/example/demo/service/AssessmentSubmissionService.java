@@ -85,3 +85,7 @@ public class AssessmentSubmissionService {
         return submissionRepository.save(submission);
     }
 }
+
+
+
+//handles raw answer submission, auto-passes quizzes, marks assignments PENDING for trainer review

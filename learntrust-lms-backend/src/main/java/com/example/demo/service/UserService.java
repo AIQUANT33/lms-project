@@ -18,7 +18,7 @@ public class UserService {
 
     // CREATE USER (REGISTER)
     public User createUser(User user) {
-        // Check if email already exists
+        // Check if email already exists (prevents duplicate user)
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             throw new RuntimeException("Email already registered: " + user.getEmail());
         }
@@ -33,7 +33,12 @@ public class UserService {
         if (user.getCreatedAt() == null) {
             user.setCreatedAt(java.time.LocalDateTime.now());
         }
+
         
+         /*save() is a JPA method. 
+         If the user has no ID (new user), it does an INSERT.
+          If it has an ID (existing user), it does an UPDATE. 
+          Returns the saved entity with the auto-generated userId filled in.*/ 
         return userRepository.save(user);
     }
 

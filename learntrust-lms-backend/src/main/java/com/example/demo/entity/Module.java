@@ -36,3 +36,5 @@ public class Module {
         this.sequenceNo = sequenceNo;
     }
 }
+
+//a section inside a course, has an order number so modules can be reordered

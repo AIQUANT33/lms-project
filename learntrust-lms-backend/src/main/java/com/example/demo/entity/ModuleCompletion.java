@@ -53,3 +53,6 @@ public class ModuleCompletion {
 
     // getters and setters
 }
+
+
+//records that a specific student finished a specific module

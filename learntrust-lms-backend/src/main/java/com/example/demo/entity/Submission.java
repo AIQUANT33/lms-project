@@ -59,3 +59,6 @@ public class Submission {
         this.reviewStatus = reviewStatus;
     }
 }
+
+
+//a simpler submission entity linked to a Quiz , tracks PENDING/APPROVED/REJECTED review status

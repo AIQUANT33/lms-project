@@ -120,6 +120,10 @@ public class AssessmentService {
     }
 
     //course completion
+    /*This runs automatically when a student passes the final assessment. 
+    It counts total content items vs completed ones, calculates the percentage,
+     and if it hits 100%, sets the enrollment to COMPLETED 
+      which unlocks the certificate request button in Angular. */
     private void completeCourseIfEligible(User student, Course course) {
 
         long totalContents =
@@ -157,6 +161,8 @@ public class AssessmentService {
 }
 
 
+
+//reates quizzes/finals, handles submission scoring, triggers progress recalculation
 
 
 

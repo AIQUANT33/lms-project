@@ -29,7 +29,7 @@ public class CourseService {
             throw new RuntimeException("Trainer must be assigned");
         }
 
-        // Always set to DRAFT - requires admin approval
+        // Always set to DRAFT 
         course.setStatus("DRAFT");
         
         return courseRepository.save(course);

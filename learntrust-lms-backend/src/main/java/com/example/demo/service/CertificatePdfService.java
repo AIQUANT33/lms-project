@@ -1,17 +1,17 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Certificate;
-import com.lowagie.text.*;
+import com.lowagie.text.*; //Creates the PDF document, adds text, fonts, images, borders
 import com.lowagie.text.pdf.PdfWriter;
 import org.springframework.stereotype.Service;
 
-import java.io.ByteArrayOutputStream;
+import java.io.ByteArrayOutputStream; //Memory buffer — holds PDF bytes instead of writing to disk
 import java.awt.Color;
-import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
-import java.io.ByteArrayOutputStream;
+import java.awt.image.BufferedImage; //Java's in-memory image object — holds the QR pixel data
+import javax.imageio.ImageIO; //Converts BufferedImage to PNG bytes so OpenPDF can embed it
 
-import com.google.zxing.*;
+
+import com.google.zxing.*; //Generates the QR code 
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 
@@ -210,3 +210,11 @@ public class CertificatePdfService {
         }
     }
 }
+
+
+/*
+This service generates a PDF certificate entirely in memory using the OpenPDF library (com.lowagie), 
+embeds a QR code using ZXing,
+  and returns the whole thing as a byte[] (raw bytes) — no file is ever saved to disk.
+
+*/

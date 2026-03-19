@@ -24,7 +24,7 @@ export class AdminCourseApprovalsComponent implements OnInit {
   constructor(
     private courseService: CourseService,
     private http: HttpClient,
-      private cdr: ChangeDetectorRef
+      private cdr: ChangeDetectorRef //Manually tells Angular to re-render when nested callbacks change data
 
   ) {}
 

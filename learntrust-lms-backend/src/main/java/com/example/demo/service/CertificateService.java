@@ -185,3 +185,16 @@ public CertificateVerificationDTO verifyCertificate(String hash) {
         }
     }
 }
+
+
+
+
+/*
+Checks the student completed the course, 
+generates the SHA-256 hash,
+ calls PinataService to upload metadata to IPFS, 
+ calls BlockchainService to mint the NFT,
+  then saves everything to PostgreSQL. 
+
+
+*/

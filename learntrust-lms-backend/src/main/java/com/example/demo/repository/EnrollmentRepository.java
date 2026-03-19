@@ -19,7 +19,7 @@ public interface EnrollmentRepository extends JpaRepository<Enrollment, Long> {
 
     long countByCourse(Course course);
 
-    @Modifying
-    @Transactional
+    @Modifying //write operation (Delete)
+    @Transactional //delete either fully completes or fully rolls back (atomic)
     void deleteByCourse(Course course); 
 }

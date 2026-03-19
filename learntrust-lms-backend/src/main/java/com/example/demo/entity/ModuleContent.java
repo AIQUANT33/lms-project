@@ -30,3 +30,5 @@ public class ModuleContent {
     @Column(nullable = false)
     private int sequenceOrder;
 }
+
+// a piece of content (VIDEO/PDF/TEXT) inside a module, has a sequence order

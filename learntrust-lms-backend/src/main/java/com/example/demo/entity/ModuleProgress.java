@@ -53,3 +53,7 @@ public class ModuleProgress {
         this.status = status;
     }
 }
+
+
+
+// tracks per-enrollment whether a module is COMPLETED or NOT_COMPLETED

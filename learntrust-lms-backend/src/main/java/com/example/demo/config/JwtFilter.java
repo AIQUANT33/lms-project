@@ -14,6 +14,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.List;
 
+//runs on every single http
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
@@ -34,14 +35,14 @@ public class JwtFilter extends OncePerRequestFilter {
             path.startsWith("/users") ||
             path.startsWith("/api/ui/") ||
             path.startsWith("/trainer-requests")) {
-            filterChain.doFilter(request, response);
+            filterChain.doFilter(request, response); //skip all jwt logic below this
             return;
         }
 
         // Get Authorization header
         String authHeader = request.getHeader("Authorization");
 
-        // No token → just continue (permitAll still works)
+      
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;

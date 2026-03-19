@@ -56,3 +56,6 @@ public class ModuleCompletionService {
         return completionRepository.save(completion); //save to db and return the saved entity with id and completedAt populated
     }
 }
+
+
+//marks a module as completed by a student, prevents duplicate completions

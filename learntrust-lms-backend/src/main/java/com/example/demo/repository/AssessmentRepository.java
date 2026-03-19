@@ -9,12 +9,12 @@ import java.util.List;
 
 public interface AssessmentRepository extends JpaRepository<Assessment, Long> {
 
-    // ===== MODULE QUIZ =====
+    //  MODULE QUIZ 
     List<Assessment> findByModule(Module module);
 
     boolean existsByModule(Module module);
 
-    // ===== FINAL COURSE ASSESSMENT =====
+    //  FINAL COURSE ASSESSMENT 
     List<Assessment> findByCourse(Course course);
 
 

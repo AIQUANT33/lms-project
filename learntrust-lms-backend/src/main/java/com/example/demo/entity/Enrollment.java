@@ -14,12 +14,12 @@ public class Enrollment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long enrollmentId;
 
-    @ManyToOne
+    @ManyToOne  //many enrollments can point to one student,
     @JoinColumn(name = "student_id", nullable = false)
     @JsonIgnoreProperties({"password"})
     private User student;
 
-    @ManyToOne
+    @ManyToOne // many enrollments can point to one course
     @JoinColumn(name = "course_id", nullable = false)
     @JsonIgnoreProperties({"approvedByAdmin"})
     private Course course;

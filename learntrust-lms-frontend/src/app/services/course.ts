@@ -7,9 +7,10 @@ export interface Course {
   title: string;
   description: string;
   status: string;
-  videoUrl?: string;
+  videoUrl?: string; //The ? on videoUrl means it's optional — some courses might not have a video. This gives you type safety
 }
 
+//singleton service (one instance shared across the whole app)
 @Injectable({
   providedIn: 'root'
 })

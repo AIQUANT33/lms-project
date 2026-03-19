@@ -11,12 +11,12 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  // REGISTER — unchanged
+  // REGISTER 
   register(user: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/users`, user);
   }
 
-  // LOGIN — now saves token separately
+  // LOGIN 
   login(payload: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/auth/login`, payload).pipe(
       tap((response: any) => {
@@ -42,7 +42,7 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  // User storage — unchanged
+  // User storage 
   saveUser(user: any) {
     localStorage.setItem('user', JSON.stringify(user));
   }

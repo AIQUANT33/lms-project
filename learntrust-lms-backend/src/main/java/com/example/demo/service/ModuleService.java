@@ -102,6 +102,16 @@ public class ModuleService {
 
     // DELETE MODULE
     // deletes in correct order to avoid FK constraint errors
+    /*
+
+    PostgreSQL has foreign key constraints — 
+    you can't delete a parent record if child records still point to it.
+     If you try to delete a module while content_completions rows still reference its contents,
+      the database throws an error.
+       You delete in reverse order: deepest children first, then parents. 
+       @Transactional means all these deletes happen as one unit — 
+       if any step fails, all are rolled back and nothing is partially deleted.
+     */
     @Transactional
     public void deleteModule(Long moduleId) {
         Module module = moduleRepository.findById(moduleId)
@@ -137,3 +147,6 @@ public class ModuleService {
         moduleRepository.saveAll(modules);
     }
 }
+
+
+//creates modules, handles move up/down ordering, deletes in correct order to avoid database errors

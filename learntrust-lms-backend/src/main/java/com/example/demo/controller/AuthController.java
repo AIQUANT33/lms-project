@@ -45,8 +45,11 @@ public class AuthController {
         response.put("email", user.getEmail());
         response.put("role", user.getRole());
         response.put("status", user.getStatus());
-        // password is intentionally NOT included
+       
 
         return response;
     }
 }
+
+
+// validate credentials → generate token → return token + safe user info. 

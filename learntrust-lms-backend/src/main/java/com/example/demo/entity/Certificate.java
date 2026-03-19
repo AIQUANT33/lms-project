@@ -43,3 +43,15 @@ public class Certificate {
         this.issuedAt = LocalDateTime.now();
     }
 }
+
+
+/*
+Stores the final certificate record. 
+Contains the SHA-256 hash,
+ the Ethereum transaction hash,
+  the IPFS metadata URL
+  , the NFT token ID, 
+  and which student + course it belongs to.
+   This is your permanent record in PostgreSQL.
+
+*/

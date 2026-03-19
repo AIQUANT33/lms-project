@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import java.security.Key;
 import java.util.Date;
 
+//create and read JWT tokens
 @Component
 public class JwtUtil {
 
@@ -19,21 +20,20 @@ public class JwtUtil {
 
     // Generate key from secret
     private Key getSigningKey() {
-        return Keys.hmacShaKeyFor(secret.getBytes());
+        return Keys.hmacShaKeyFor(secret.getBytes()); //secret string converted to cryptographic key
     }
 
     // Generate token from user details
-    public String generateToken(String email, String role, Long userId) {
-        return Jwts.builder()
-                .setSubject(email)
-                .claim("role", role)
-                .claim("userId", userId)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
-                .compact();
-    }
-
+  public String generateToken(String email, String role, Long userId) {
+    return Jwts.builder()
+        .setSubject(email)           // who this token is for
+        .claim("role", role)         // their role (STUDENT/TRAINER/ADMIN)
+        .claim("userId", userId)     // their database ID
+        .setIssuedAt(new Date())     // when was it created
+        .setExpiration(new Date(System.currentTimeMillis() + expiration)) // when it dies
+        .signWith(getSigningKey(), SignatureAlgorithm.HS256) // sign it
+        .compact();                  // serialize to a string
+}
     // Extract email from token
     public String extractEmail(String token) {
         return getClaims(token).getSubject();

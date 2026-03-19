@@ -8,12 +8,12 @@ import java.util.List;
 public interface CourseRepository extends JpaRepository<Course, Long> {
 
     // trainer courses
-    List<Course> findByTrainer(User trainer);
+    List<Course> findByTrainer(User trainer); //SELECT * FROM courses WHERE trainer_id = ?
 
     // by status
-    List<Course> findByStatus(String status);
+    List<Course> findByStatus(String status); 
 
-    //  trainer + status (very useful)
+    // trainer & status
     List<Course> findByTrainerAndStatus(User trainer, String status);
 
     long countByStatus(String status);

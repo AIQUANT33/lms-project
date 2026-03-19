@@ -4,7 +4,7 @@ import com.example.demo.dto.CourseDetailsDTO;
 import com.example.demo.entity.Course;
 import com.example.demo.service.CourseService;
 
-import org.springframework.http.ResponseEntity;
+//import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import com.example.demo.entity.Module;
@@ -39,12 +39,16 @@ public class CourseController {
     // COURSE DETAILS
     @GetMapping("/{courseId}/details")
     public CourseDetailsDTO getCourseDetails(@PathVariable Long courseId) {
-
+    //path variable  extracts courseId from the URL
         Course course = courseService.getCourseById(courseId);
         List<Module> modules = moduleService.getModulesByCourse(courseId);
-
+    /*etch the course AND its modules separately, 
+    then wrap both into one CourseDetailsDTO object, 
+    so Angular gets everything in one API call instead of two. */
         return new CourseDetailsDTO(course, modules);
     }
+
+
 
     //GET COURSE BY ID
     @GetMapping("/{courseId}")
