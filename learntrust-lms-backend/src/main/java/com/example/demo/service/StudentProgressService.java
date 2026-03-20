@@ -54,7 +54,7 @@ public class StudentProgressService {
         int completedCourses = 0;
 
         for (Enrollment e : enrollments) {
-            if (isCourseCompleted(e)) { // ← fixed
+            if (isCourseCompleted(e)) { 
                 completedCourses++;
             }
         }
@@ -120,7 +120,7 @@ public class StudentProgressService {
         int completedCourses = 0;
 
         for (Enrollment e : enrollments) {
-            if (isCourseCompleted(e)) { // ← fixed
+            if (isCourseCompleted(e)) { 
                 completedCourses++;
             }
         }

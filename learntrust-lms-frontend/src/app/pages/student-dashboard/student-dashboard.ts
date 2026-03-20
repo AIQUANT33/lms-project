@@ -269,20 +269,24 @@ this.completedCourses = enrollList
         labels:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
         datasets:[{
           label:"Study Activity",
-          data:Array.from(this.analytics.weeklyStudyActivity || [0,0,0,0,0,0,0]),
+         data: Array.from(this.analytics.weeklyActivity || [0,0,0,0,0,0,0]),
           backgroundColor:"#6366f1"
         }]
       },
       options:{
         responsive:true,
         scales:{
-          y:{
-            beginAtZero:true
-          }
-        }
+         y: {
+        beginAtZero: true,
+        ticks: {
+          stepSize: 1,   
+          precision: 0   
+        },
+        suggestedMax: 5 
       }
-    });
-
+    }
+  }
+});
   }
 
   // enroll
