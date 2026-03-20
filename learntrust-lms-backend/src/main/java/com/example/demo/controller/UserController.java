@@ -29,14 +29,14 @@ public class UserController {
         this.aiService = aiService;
     }
 
-    // ================= CREATE USER =================
+    //  CREATE USER 
 
     @PostMapping
     public User createUser(@RequestBody User user) {
         return userService.createUser(user);
     }
 
-    // ================= CREATE ADMIN =================
+    // CREATE ADMIN 
 
     @PostMapping("/admin")
     public User createAdmin(@RequestBody Map<String, String> payload) {
@@ -48,7 +48,7 @@ public class UserController {
         return userService.createAdmin(name, email, password);
     }
 
-    // ================= TEST ADMIN =================
+    // TEST ADMIN 
 
     @GetMapping("/create-admin")
     public String createAdminTest(
@@ -64,16 +64,15 @@ public class UserController {
                 + admin.getEmail();
     }
 
-    // ================= GET USERS =================
-
+    // GET USERS 
     @GetMapping
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
 
-    // =================================================
+    
     // AI STUDENT PROGRESS SUMMARY
-    // =================================================
+    
 
     @GetMapping("/{id}/ai-progress-summary")
     public String getStudentAISummary(@PathVariable Long id) {
@@ -83,9 +82,9 @@ public class UserController {
         return aiService.generateProgressSummary(progressData);
     }
 
-    // =================================================
+    
     // STUDENT ANALYTICS
-    // =================================================
+    
 
     @GetMapping("/{id}/analytics")
     public ProgressAnalytics getStudentAnalytics(@PathVariable Long id) {

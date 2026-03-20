@@ -31,9 +31,17 @@ public class StudentProgressService {
         this.userRepository = userRepository;
     }
 
-    // =====================================================
+    // helper — checks if a course is considered completed
+    private boolean isCourseCompleted(Enrollment e) {
+        String status = e.getCompletionStatus();
+        return "COMPLETED".equals(status) ||
+               "APPROVED".equals(status) ||
+               "PENDING_APPROVAL".equals(status);
+    }
+
+   
     // AI SUMMARY DATA
-    // =====================================================
+  
 
     public String buildProgressData(Long studentId) {
 
@@ -46,7 +54,7 @@ public class StudentProgressService {
         int completedCourses = 0;
 
         for (Enrollment e : enrollments) {
-            if ("COMPLETED".equals(e.getCompletionStatus())) {
+            if (isCourseCompleted(e)) { // ← fixed
                 completedCourses++;
             }
         }
@@ -55,57 +63,50 @@ public class StudentProgressService {
         long totalLessonsCompleted = 0;
 
         for (Enrollment e : enrollments) {
-
             Course course = e.getCourse();
-
             totalModulesCompleted +=
                     moduleCompletionRepository.countByStudentAndModule_Course(student, course);
-
             totalLessonsCompleted +=
                     contentCompletionRepository.countByStudentAndContent_Module_Course(student, course);
         }
 
-        Double avgScore =
-                submissionRepository.findAverageScoreByStudent(student);
-
+        Double avgScore = submissionRepository.findAverageScoreByStudent(student);
         if (avgScore == null) avgScore = 0.0;
 
         return
-                "Student learning data:\n" +
-                "Courses enrolled: " + totalCourses + "\n" +
-                "Courses completed: " + completedCourses + "\n" +
-                "Modules completed: " + totalModulesCompleted + "\n" +
-                "Lessons completed: " + totalLessonsCompleted + "\n" +
-                "Average quiz score: " + avgScore;
+            "Student learning data:\n" +
+            "Courses enrolled: " + totalCourses + "\n" +
+            "Courses completed: " + completedCourses + "\n" +
+            "Modules completed: " + totalModulesCompleted + "\n" +
+            "Lessons completed: " + totalLessonsCompleted + "\n" +
+            "Average quiz score: " + avgScore;
     }
 
-    // =====================================================
+    
     // WEEKLY STUDY ACTIVITY
-    // =====================================================
+    
 
     private int[] getWeeklyStudyActivity(User student) {
 
-        int[] weekly = new int[7]; // Mon-Sun
+        int[] weekly = new int[7];
 
         List<ContentCompletion> completions =
                 contentCompletionRepository.findByStudent(student);
 
         for (ContentCompletion completion : completions) {
-
             int dayIndex =
                     completion.getCompletedAt()
                             .getDayOfWeek()
                             .getValue() - 1;
-
             weekly[dayIndex] += 1;
         }
 
         return weekly;
     }
 
-    // =====================================================
+   
     // ANALYTICS FOR DASHBOARD
-    // =====================================================
+   
 
     public ProgressAnalytics getStudentAnalytics(Long studentId) {
 
@@ -119,7 +120,7 @@ public class StudentProgressService {
         int completedCourses = 0;
 
         for (Enrollment e : enrollments) {
-            if ("COMPLETED".equals(e.getCompletionStatus())) {
+            if (isCourseCompleted(e)) { // ← fixed
                 completedCourses++;
             }
         }
@@ -130,21 +131,16 @@ public class StudentProgressService {
         long lessonsCompleted = 0;
 
         for (Enrollment e : enrollments) {
-
             Course course = e.getCourse();
-
             modulesCompleted +=
                     moduleCompletionRepository
                             .countByStudentAndModule_Course(student, course);
-
             lessonsCompleted +=
                     contentCompletionRepository
                             .countByStudentAndContent_Module_Course(student, course);
         }
 
-        Double avgScore =
-                submissionRepository.findAverageScoreByStudent(student);
-
+        Double avgScore = submissionRepository.findAverageScoreByStudent(student);
         if (avgScore == null) avgScore = 0.0;
 
         int[] weeklyActivity = getWeeklyStudyActivity(student);
