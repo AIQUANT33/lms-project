@@ -54,7 +54,7 @@ export const routes: Routes = [
     data: { role: 'TRAINER' }
   },
 
-  // ✅ TRAINER FEATURES (FIXED)
+  //  TRAINER FEATURES 
   {
     path: 'trainer/submissions',
     loadComponent: () =>

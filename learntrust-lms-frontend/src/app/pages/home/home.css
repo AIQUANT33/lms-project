@@ -7,6 +7,9 @@
   background: linear-gradient(135deg, var(--primary, #1e3a8a), var(--secondary, #0ea5e9)); 
   color: white;
   font-family: 'Plus Jakarta Sans', sans-serif;
+  width: 100%;              
+  box-sizing: border-box;   
+  overflow-x: hidden;    
 }
 
 .hero-left { max-width: 520px; }
