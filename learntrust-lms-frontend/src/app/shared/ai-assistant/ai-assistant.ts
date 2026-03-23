@@ -42,7 +42,7 @@ export class AiAssistant {
 
   sendMessage() {
 
-    if (!this.question.trim()) return; //prevents empty messages
+    if (!this.question.trim()) return; //prevents empty messages (trims whitespace from both ends)
 
     const userMessage = this.question; //store user message
 
@@ -53,7 +53,7 @@ export class AiAssistant {
     });
 
     this.question = '';
-    this.loading = true;
+    this.loading = true; //AI is thinking displayed
 
     setTimeout(() => this.scrollToBottom()); //to ensure that the newest msg is visible
 
@@ -99,6 +99,8 @@ if (typeof res === 'string') {
   }
   
   //ensure ai response is visible
+  //chatbody works as variable saying i have access to chat container
+  //actual function works here 
   scrollToBottom() {
     if (!this.chatBody) return;
     this.chatBody.nativeElement.scrollTop =

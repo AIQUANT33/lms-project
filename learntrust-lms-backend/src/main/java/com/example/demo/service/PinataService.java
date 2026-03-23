@@ -36,7 +36,7 @@ public class PinataService {
                 new HttpEntity<>(metadata, headers); //HttpEntity bundles the body  and headers together into one object — ready to be sent as an HTTP request.
         
         /*
-        postForEntity sends the POST request to Pinata and waits for the response. 
+        post For Entity sends the POST request to Pinata and waits for the response. 
         Map.class tells RestTemplate to deserialise the JSON response into a Java Map. 
         ResponseEntity wraps the response body, status code, and headers together.
         */

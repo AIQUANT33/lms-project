@@ -34,13 +34,16 @@ public class AssessmentSubmissionService {
             Long assessmentId,
             Long studentId,
             String submissionData) {
-
+        
+        //check if assessment exists
         Assessment assessment = assessmentRepository.findById(assessmentId)
                 .orElseThrow(() -> new RuntimeException("Assessment not found"));
-
+        
+        //check if student exists
         User student = userRepository.findById(studentId)
                 .orElseThrow(() -> new RuntimeException("Student not found"));
 
+        //check if the student has already submitted 
         submissionRepository.findByAssessmentAndStudent(assessment, student)
                 .ifPresent(s -> {
                     throw new RuntimeException("Already submitted");

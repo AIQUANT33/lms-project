@@ -112,7 +112,7 @@ public class ModuleService {
        @Transactional means all these deletes happen as one unit — 
        if any step fails, all are rolled back and nothing is partially deleted.
      */
-    @Transactional
+    @Transactional //ensures all steps succeed together or none at all.
     public void deleteModule(Long moduleId) {
         Module module = moduleRepository.findById(moduleId)
                 .orElseThrow(() -> new RuntimeException("Module not found"));

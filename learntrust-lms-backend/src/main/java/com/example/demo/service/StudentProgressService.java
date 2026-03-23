@@ -41,7 +41,11 @@ public class StudentProgressService {
 
    
     // AI SUMMARY DATA
-  
+    /*
+       Total & completed courses
+       Total modules & lessons completed
+       Average quiz score
+    */
 
     public String buildProgressData(Long studentId) {
 

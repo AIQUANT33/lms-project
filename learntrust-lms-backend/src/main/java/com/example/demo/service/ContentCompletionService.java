@@ -48,19 +48,20 @@ public class ContentCompletionService {
         this.enrollmentRepository = enrollmentRepository;
         this.userRepository = userRepository;
         this.assessmentRepository = assessmentRepository;
+
     }
 
 
     /*
-     * CONTENT COMPLETION LOGIC
-     *
-     * Steps:
-     * 1. Validate student
-     * 2. Validate content
-     * 3. Prevent duplicate completion
-     * 4. Save completion
-     * 5. Update course progress
-     * 6. Check module completion
+      CONTENT COMPLETION LOGIC
+     
+     Steps:
+      1. Validate student
+      2. Validate content
+      3. Prevent duplicate completion
+      4. Save completion
+      5. Update course progress
+      6. Check module completion
      */
     public ContentCompletion completeContent(ContentCompletionRequest request) {
 
@@ -96,13 +97,13 @@ public class ContentCompletionService {
 
 
     /*
-     * MODULE COMPLETION LOGIC
-     *
-     * Module is completed only if:
-     * - All contents completed
-     * - AND no assessment exists
-     *
-     * If assessment exists → completion will be handled after passing assessment
+      MODULE COMPLETION LOGIC
+     
+      Module is completed only if:
+       All contents complete
+       AND no assessment exists
+     
+      If assessment exists → completion will be handled after passing assessment
      */
     private void checkAndCompleteModule(User student, Module module) {
 
@@ -151,12 +152,10 @@ public class ContentCompletionService {
 
 
     /*
-     * COURSE PROGRESS CALCULATION
-     *
-     * Progress = (Completed Contents in Course / Total Contents in Course) * 100
-     *
-     * Partial progress is supported.
-     * 100% marks enrollment as COMPLETED.
+      COURSE PROGRESS CALCULATION
+      Progress = (Completed Contents in Course / Total Contents in Course) * 100
+      Partial progress is supported.
+      100% marks enrollment as COMPLETED.
      */
     private void updateEnrollmentProgress(User student, Course course) {
 

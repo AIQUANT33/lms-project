@@ -8,7 +8,7 @@ import { UiService } from './services/ui.service';
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, AiAssistant, HttpClientModule],
-  templateUrl: './app.html', 
+  templateUrl: './app.html',  
   styleUrls: ['./app.css']
 })
 export class AppComponent implements OnInit {
@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
           // This makes them available to EVERY component
   applyThemeFromBackend() {
     this.uiService.getTheme().subscribe({
-      next: (theme) => {
+      next: (theme) => { //next runs when the api call succeeds
         if (theme) {
           document.documentElement.style.setProperty('--primary', theme.primaryColor);
           document.documentElement.style.setProperty('--secondary', theme.secondaryColor);

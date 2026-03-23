@@ -52,7 +52,7 @@ public class BlockchainService {
                 )
                 .send();
 
-        // Extract event
+                
         List<Learntrust.CertificateMintedEventResponse> events =
                 Learntrust.getCertificateMintedEvents(receipt);
 

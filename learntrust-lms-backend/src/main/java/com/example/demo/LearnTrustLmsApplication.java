@@ -19,3 +19,4 @@ public class LearnTrustLmsApplication {
         SpringApplication.run(LearnTrustLmsApplication.class, args);
     }
 }
+

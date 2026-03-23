@@ -16,3 +16,10 @@ export const appConfig: ApplicationConfig = {
     }
   ]
 };
+
+
+/*
+1. Router — handles page navigation
+2. HttpClient — handles all API calls
+3. AuthInterceptor — attaches JWT token to every request
+*/

@@ -22,7 +22,8 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
 
-    this.loadUser();
+    this.loadUser(); /** -reads user from localStorage
+                         -sets role, userName, isLoggedIn */
 
     this.darkMode = localStorage.getItem('darkMode') === 'true';
 
@@ -84,3 +85,24 @@ export class NavbarComponent implements OnInit {
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+Reads user from localStorage
+→ sets role (STUDENT/TRAINER/ADMIN)
+→ shows correct nav links for that role
+→ shows username + logout if logged in
+→ shows login + signup if not logged in
+→ re-checks user on every route change
+*/

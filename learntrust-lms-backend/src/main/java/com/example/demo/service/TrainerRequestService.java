@@ -58,10 +58,9 @@ public class TrainerRequestService {
     TrainerRequest request = repository.findById(requestId)
             .orElseThrow(() -> new RuntimeException("Request not found"));
 
-    // ✅ update request status
+    //  update request status
     request.setStatus("APPROVED");
-
-    // ✅ upgrade user role (existing logic)
+    //  upgrade user role 
     Optional<User> userOpt = userRepository.findByEmail(request.getEmail());
 
     if (userOpt.isPresent()) {

@@ -8,13 +8,14 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
-@Service
+@Service //Spring creates one singleton instance of this class 
 public class AdminStatsService {
-
+    //this service needs to query three different tables (users, courses, trainer_requests) to build the full stats picture.
     private final UserRepository userRepository;
     private final CourseRepository courseRepository;
     private final TrainerRequestRepository trainerRequestRepository;
 
+    //Spring sees this constructor, finds the three matching beans it already manages, and injects them automatically.
     public AdminStatsService(UserRepository userRepository,
                              CourseRepository courseRepository,
                              TrainerRequestRepository trainerRequestRepository) {
@@ -23,11 +24,13 @@ public class AdminStatsService {
         this.trainerRequestRepository = trainerRequestRepository;
     }
 
+
+
     public Map<String, Object> getPlatformStats() {
 
         Map<String, Object> stats = new HashMap<>();
 
-        // users
+        // users(checks how many users have the roles of students/trainer/admin)
         stats.put("totalStudents", userRepository.countByRole("STUDENT"));
         stats.put("totalTrainers", userRepository.countByRole("TRAINER"));
         stats.put("totalAdmins", userRepository.countByRole("ADMIN"));

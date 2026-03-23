@@ -21,8 +21,7 @@ public class AiService {
     "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=";
 
     private String callGemini(String prompt) {
-        /*This function sends a prompt to Gemini AI and returns the generated response.
-        All other methods calls this function. */
+        /*This function sends a prompt to Gemini AI and returns the generated response.*/
 
         RestTemplate restTemplate = new RestTemplate();
 

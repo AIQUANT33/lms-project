@@ -27,6 +27,7 @@ public class EnrollmentService {
 
     //First it finds the student, then checks their role. 
     // This prevents a trainer or admin from enrolling in a course using this endpoint. 
+    //validations before enrolling : student;published;no duplicate enrollment
     public Enrollment enrollStudent(Long studentId, Long courseId) {
 
         User student = userRepository.findById(studentId)
